@@ -1,0 +1,13 @@
+{
+  "project_author": null,
+  "project_author_email": null,
+  "project_name": "Tiger Clean Architecture",
+  "project_class": "{{ cookiecutter.project_name.title().replace(' ', '') }}",
+  "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '-')}}",
+  "project_snake": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-','_') }}",
+  "project_camel": "{{ cookiecutter.project_class[0]|lower }}{{ cookiecutter.project_class[1:] }}",
+  "model_name": null,
+  "model_class": "{{ cookiecutter.model_name.title().replace(' ', '') }}",
+  "model_snake": "{{ cookiecutter.model_name.lower().replace(' ', '_').replace('-','_') }}",
+  "model_camel": "{{ cookiecutter.model_class[0]|lower }}{{ cookiecutter.model_class[1:] }}"
+}
