@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest import TestCase
 from unittest.mock import AsyncMock
 
@@ -18,8 +19,14 @@ class DriverMock({{cookiecutter.model_class}}Driver):
 class Test{{cookiecutter.model_class}}Repository(TestCase):
     @async_test
     async def test_get(self):
-        get_main_group_mock = AsyncMock(return_value={"{{cookiecutter.model_snake}}": [
-            {"id": "1", "body": "test"}
+        now = datetime.now()
+        expected = {
+            'id': 1,
+            'created_at': now,
+            'updated_at': now,
+        }
+        get_main_group_mock = AsyncMock(return_value={"{{cookiecutter.model_snake}}_collection": [
+            expected
         ]})
 
         driver = DriverMock()
@@ -28,6 +35,6 @@ class Test{{cookiecutter.model_class}}Repository(TestCase):
 
         self.assertEqual(
             await repository.get_list(1),
-            {{cookiecutter.model_class}}Collection(values=[{{cookiecutter.model_class}}(id="1", body="test")])
+            {{cookiecutter.model_class}}Collection(values=[{{cookiecutter.model_class}}(**expected)])
         )
         get_main_group_mock.assert_called_with(1)

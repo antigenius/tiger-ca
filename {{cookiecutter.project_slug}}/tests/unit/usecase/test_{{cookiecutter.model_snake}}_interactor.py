@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest import TestCase
 from unittest.mock import AsyncMock
 
@@ -18,12 +19,18 @@ class RepositoryMock({{cookiecutter.model_class}}Repository):
 class Test{{cookiecutter.model_class}}Interactor(TestCase):
     @async_test
     async def test_get(self):
+        now = datetime.now()
+        expected = {
+            'id': 1,
+            'created_at': now,
+            'updated_at': now,
+        }
         get_mock = AsyncMock(
-            return_value={{cookiecutter.model_class}}(id="1", body='test'))
+            return_value={{cookiecutter.model_class}}(**expected))
 
         repo = RepositoryMock()
         repo.get_list = get_mock
         usecase = {{cookiecutter.model_class}}Interactor({{cookiecutter.model_snake}}_repository=repo)
 
-        self.assertEqual(await usecase.get_list(1), {{cookiecutter.model_class}}(id="1", body="test"))
+        self.assertEqual(await usecase.get_list(1), {{cookiecutter.model_class}}(**expected))
         get_mock.assert_called_with(1)
