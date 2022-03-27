@@ -6,22 +6,25 @@ from uvicorn import (
     Server
 )
 
-from src.driver.article_driver import ArticleDriverImpl
-from src.interactor.article_interactor import ArticleInteractor
-from src.repository.article_repository import ArticleRepositoryImpl
-from src.rest.article_resource import ArticleResource
+from src.driver.{{cookiecutter.model_snake}}_driver import {{cookiecutter.model_class}}DriverImpl
+from src.interactor.{{cookiecutter.model_snake}}_interactor import {{cookiecutter.model_class}}Interactor
+from src.repository.{{cookiecutter.model_snake}}_repository import {{cookiecutter.model_class}}RepositoryImpl
+from src.rest.{{cookiecutter.model_snake}}_resource import {{cookiecutter.model_class}}Resource
 
 app = FastAPI()
 
-article_resource = ArticleResource(
-    article_usecase=ArticleInteractor(
-        article_repository=ArticleRepositoryImpl(
-            article_driver=ArticleDriverImpl()
+{{cookiecutter.model_snake}}_resource = {{cookiecutter.model_class}}Resource(
+    {{cookiecutter.model_snake}}_usecase={{cookiecutter.model_class}}Interactor(
+        {{cookiecutter.model_snake}}_repository={{cookiecutter.model_class}}RepositoryImpl(
+            {{cookiecutter.model_snake}}_driver={{cookiecutter.model_class}}DriverImpl()
         )
     )
 )
 
-app.add_route('/', article_resource.index)
+
+@app.get('/')
+async def index():
+    return await {{cookiecutter.model_snake}}_resource.index()
 
 
 if __name__ == '__main__':

@@ -5,5 +5,5 @@ This cookiecutter template was adapted from, and named for, [@t-tiger](https://g
 # Usage
 
 ```
-cookiecutter
+cookiecutter git+https://github.com/antigenius/tiger-ca
 ```
